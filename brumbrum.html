@@ -1,0 +1,39 @@
+<html>
+  <head>
+    <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+    <script type="text/javascript">
+      google.charts.load('current', {'packages':['corechart']});
+      google.charts.setOnLoadCallback(drawChart);
+
+      function drawChart() {
+
+        var data = google.visualization.arrayToDataTable([
+          ['Team', 'Points'],
+          ['Mercedes', 173],
+          ['Ferrari', 99],
+          ['Red Bull',  64],
+          ['McLaren', 18],
+          ['Racing Point',    17],
+          ['Alfa Romeo', 13],
+          ['Renault', 12],
+          ['Haas F1 Team', 8],
+          ['Toro Rosso', 4]
+        ]);
+
+        var options = {
+          title: 'F1 2019'
+        };
+
+        var chart = new google.visualization.PieChart(document.getElementById('piechart'));
+
+        chart.draw(data, options);
+      }
+
+
+
+    </script>
+  </head>
+  <body>
+    <div id="piechart" style="width: 900px; height: 500px;"></div>
+  </body>
+</html>
