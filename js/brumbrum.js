@@ -78,7 +78,11 @@ window.onload = function() {
         google.charts.setOnLoadCallback(function() {
             var top_five = google.visualization.arrayToDataTable(driver_standings);
             var chart = new google.visualization.PieChart(document.getElementById('TopFivepiechart'));
-            var options = { title: 'Top 5 Drivers', pieHole: 0.4 };
+            var options = { 
+                title: 'Top 5 Drivers', 
+                pieHole: 0.4,
+                pieSliceText: 'value'
+            };
             chart.draw(top_five, options);
       });
     });
