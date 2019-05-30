@@ -60,6 +60,37 @@ function load_driver_standings(callback) {
 }
 
 
+function driver_table(callback) {
+    const http_req = new XMLHttpRequest();
+    const url = 'https://ergast.com/api/f1/current/driverStandings.json';
+    http_req.open('GET', url);
+    http_req.send();
+
+    http_req.onreadystatechange = function(e) {
+        if (http_req.readyState === 4 && http_req.status === 200) {
+        let response_data = JSON.parse(http_req.responseText);
+
+        let standings = response_data.MRData.StandingsTable.StandingsLists[0].DriverStandings;
+        //console.log(standings);
+
+        var driver_standings = [['Driver', 'Points']];
+
+        for (var i = 0; i < standings.length; i++) {
+            driver_standings.push([standings[i].Driver.givenName + " " + standings[i].Driver.familyName, parseInt(standings[i].points, 10)]);
+        }
+
+
+        console.log(driver_standings);
+
+        callback(driver_standings);
+
+    
+        }
+    }
+}
+
+
+
 window.onload = function() {
     // constructors championship
     load_constructor_standings(function(standings_table) {
@@ -86,4 +117,19 @@ window.onload = function() {
             chart.draw(top_five, options);
       });
     });
+
+    driver_table(function(driver_standings) {
+        google.charts.load('current', {'packages':['table']});
+        google.charts.setOnLoadCallback(function() {
+            var data = new google.visualization.arrayToDataTable(driver_standings);
+        
+
+            var table = new google.visualization.Table(document.getElementById('driverTable'));
+
+            table.draw(data, {showRowNumber: true, width: '100%', height: '100%'});
+
+        });
+    });
+
+
 }
