@@ -58,7 +58,7 @@ function load_driver_standings(callback) {
         }
     }
 }
-
+  
 
 function driver_table(callback) {
     const http_req = new XMLHttpRequest();
@@ -92,13 +92,19 @@ function driver_table(callback) {
 
 
 window.onload = function() {
+
     // constructors championship
     load_constructor_standings(function(standings_table) {
         google.charts.load('current', { packages: ['corechart'] });
         google.charts.setOnLoadCallback(function() {
-            var chart_standings_table = google.visualization.arrayToDataTable(standings_table);
-            var chart = new google.visualization.PieChart(document.getElementById('piechart'));
-            var options = { title: 'F1 2019' };
+                var chart_standings_table = google.visualization.arrayToDataTable(standings_table);
+                var chart = new google.visualization.PieChart(document.getElementById('piechart'));
+                var options = {
+                    chartArea: {top: '20',width: '100%', height: '100%'},
+                    title: 'Constructors Standings',
+                    legend: {position: 'right'}
+
+                };
             chart.draw(chart_standings_table, options);
       });
     });
@@ -110,9 +116,12 @@ window.onload = function() {
             var top_five = google.visualization.arrayToDataTable(driver_standings);
             var chart = new google.visualization.PieChart(document.getElementById('TopFivepiechart'));
             var options = { 
+                // chartArea: {top: '20', width: '100%', height: '100%'},
+                chartArea: {top: '20', width: '100%', height: '100%'},
                 title: 'Top 5 Drivers', 
                 pieHole: 0.4,
-                pieSliceText: 'value'
+                pieSliceText: 'value',
+                legend: {position: 'right'}
             };
             chart.draw(top_five, options);
       });
@@ -131,5 +140,7 @@ window.onload = function() {
         });
     });
 
+    // https://developers.google.com/chart/interactive/docs/datatables_dataviews
+    // https://stackoverflow.com/questions/41771333/sizing-google-charts-to-fill-div-width-and-height
 
 }
