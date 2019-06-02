@@ -89,8 +89,6 @@ function driver_table(callback) {
     }
 }
 
-
-
 window.onload = function() {
 
     // constructors championship
@@ -102,8 +100,8 @@ window.onload = function() {
                 var options = {
                     chartArea: {top: '20',width: '100%', height: '100%'},
                     title: 'Constructors Standings',
-                    legend: {position: 'right'}
-
+                    legend: {position: 'right'},
+                    pieHole: 0.4
                 };
             chart.draw(chart_standings_table, options);
       });
